@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Rebus" Version="4.2.1" />
+    <PackageReference Include="Rebus.RabbitMQ" Version="4.4.2" />
+    <PackageReference Include="Rebus.ServiceProvider" Version="4.0.1" />
+  </ItemGroup>
+
+</Project>

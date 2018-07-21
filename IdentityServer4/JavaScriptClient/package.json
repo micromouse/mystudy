@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "oidc-client": "1.4.1"
+  },
+  "devDependencies": {}
+}

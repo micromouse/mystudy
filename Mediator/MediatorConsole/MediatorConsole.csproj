@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>DXQ.Study.Mediator.MediatorConsole</AssemblyName>
+    <RootNamespace>DXQ.Study.Mediator.MediatorConsole</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
+    <PackageReference Include="MediatR" Version="4.1.0" />
+  </ItemGroup>
+
+</Project>

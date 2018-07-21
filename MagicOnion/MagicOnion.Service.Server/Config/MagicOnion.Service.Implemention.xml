@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MagicOnion.Service.Implemention</name>
+    </assembly>
+    <members>
+        <member name="T:MagicOnion.Service.Implemention.MyCalculateService">
+            <summary>
+            计算服务实现
+            </summary>
+        </member>
+        <member name="M:MagicOnion.Service.Implemention.MyCalculateService.SumAsync(System.Int32,System.Int32)">
+            <summary>
+            任务方式计算x+y
+            </summary>
+            <param name="x">x</param>
+            <param name="y">y</param>
+            <returns>x+y</returns>
+        </member>
+        <member name="M:MagicOnion.Service.Implemention.MyCalculateService.SumAsync2(System.Int32,System.Int32)">
+            <summary>
+            计算x+y
+            </summary>
+            <param name="x">x</param>
+            <param name="y">y</param>
+            <returns>x+y</returns>
+        </member>
+    </members>
+</doc>
