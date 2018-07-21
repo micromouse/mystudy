@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReBus.Receiver", "ReBus\ReB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatorConsole", "Mediator\MediatorConsole\MediatorConsole.csproj", "{D4183D4D-983F-43CE-A02B-E00ED8397B9C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DotNetty", "DotNetty", "{CDE59795-FAE3-4B4A-A530-CE8FDA9C9FF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
