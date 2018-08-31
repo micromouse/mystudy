@@ -77,10 +77,16 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
             _paymentMethodId = paymentMethodId;
             _orderDate = DateTime.Now;
             Address = address;
-            this.AddDomainEvent(new OrderStartedDomainEvent(
-                this, userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration));
+            this.AddDomainEvent(new OrderStartedDomainEvent(this, userId, userName, cardTypeId, 
+                                                            cardNumber, cardSecurityNumber, 
+                                                            cardHolderName, cardExpiration));
         }
 
+        /// <summary>
+        /// 添加订单项
+        /// </summary>
+        public void AddOrderItem() {
 
+        }
     }
 }
