@@ -75,7 +75,7 @@ namespace DXQ.Study.IdentityServer4.AuthorizationServer.Configuration {
                     ClientName = "MVC Code Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
                     ClientSecrets = { new Secret("secret".Sha256()) },
-                    RedirectUris = { "http://localhost:5002/signin-oidc" },
+                    RedirectUris = { "http://localhost:5002/signin" },
                     PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
                     AllowedScopes = new List<string> {
                         IdentityServerConstants.StandardScopes.OpenId,
