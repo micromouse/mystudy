@@ -63,7 +63,7 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
         /// <param name="userId">用户Id</param>
         /// <param name="userName">用户名</param>
         /// <param name="address">地址</param>
-        /// <param name="cardTypeId">卡类型Id</param>
+        /// <param name="cardTypeId">卡类型Id</param> 
         /// <param name="cardNumber">卡号</param>
         /// <param name="cardSecurityNumber">卡安全号</param>
         /// <param name="cardHolderName">持卡人姓名</param>
@@ -77,9 +77,7 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
             _paymentMethodId = paymentMethodId;
             _orderDate = DateTime.Now;
             Address = address;
-            this.AddDomainEvent(new OrderStartedDomainEvent(this, userId, userName, cardTypeId, 
-                                                            cardNumber, cardSecurityNumber, 
-                                                            cardHolderName, cardExpiration));
+            this.AddDomainEvent(new OrderStartedDomainEvent(this, userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration));
         }
 
 
