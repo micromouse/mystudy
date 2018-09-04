@@ -1,4 +1,5 @@
-﻿using Ordering.Domain.Exceptions;
+﻿using System;
+using Ordering.Domain.Exceptions;
 using Ordering.Domain.SeedWork;
 
 namespace Ordering.Domain.AggregateModel.OrderAggregate {
@@ -46,6 +47,32 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
             _discount = discount;
             _units = units;
             _pictureUrl = pictureUrl;
+        }
+
+        /// <summary>
+        /// 获得当前折扣
+        /// </summary>
+        /// <returns>当前折扣</returns>
+        public decimal GetCurrentDiscount() {
+            return _discount;
+        }
+
+        /// <summary>
+        /// 设置新折扣
+        /// </summary>
+        /// <param name="discount">折扣</param>
+        public void SetNewDiscount(decimal discount) {
+            if (discount < 0) throw new OrderingDomainException("Discount is not valid");
+            _discount = discount;
+        }
+
+        /// <summary>
+        /// 添加数量
+        /// </summary>
+        /// <param name="units">数量</param>
+        public void AddUnits(int units) {
+            if (units < 0) throw new OrderingDomainException("Invalid units");
+            _units += units;
         }
     }
 }

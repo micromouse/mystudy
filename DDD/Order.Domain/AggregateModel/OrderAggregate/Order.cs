@@ -1,11 +1,13 @@
 ﻿using Ordering.Domain.Events;
+using Ordering.Domain.Exceptions;
 using Ordering.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ordering.Domain.AggregateModel.OrderAggregate {
     /// <summary>
-    /// 订单实体聚合根
+    /// 订单
     /// </summary>
     public class Order : Entity, IAggregateRoot {
         #region 私有字段
@@ -80,6 +82,46 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
             this.AddDomainEvent(new OrderStartedDomainEvent(this, userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration));
         }
 
+        /// <summary>
+        /// 添加订单项
+        /// </summary>
+        /// <param name="productId">产品Id</param>
+        /// <param name="productName">产品名称</param>
+        /// <param name="unitPrice">单价</param>
+        /// <param name="discount">折扣</param>
+        /// <param name="pictureUrl">图片Url</param>
+        /// <param name="units">数量</param>
+        public void AddOrderItem(int productId, string productName, decimal unitPrice, decimal discount, string pictureUrl, int units = 1) {
+            var existingOrderItemForProduct = _orderItems.SingleOrDefault(x => x.ProductId == productId);
 
+            if (existingOrderItemForProduct != null) {
+                if (discount > existingOrderItemForProduct.GetCurrentDiscount()) {
+                    existingOrderItemForProduct.SetNewDiscount(discount);
+                }
+                existingOrderItemForProduct.AddUnits(units);
+            } else {
+                var orderItem = new OrderItem(productId, productName, unitPrice, discount, pictureUrl, units);
+                _orderItems.Add(orderItem);
+            }
+        }
+
+        public void SetCancelledStatus() {
+            if (_orderStatusId == OrderStatus.Paid.Id || _orderStatusId == OrderStatus.Shipped.Id) {
+                this.StatusChangeException(OrderStatus.Cancelled);
+            }
+
+            _orderStatusId = OrderStatus.Cancelled.Id;
+            _description = "The order wa cancelled.";
+            this.AddDomainEvent(new OrderCancelledDomainEvent(this));
+        }
+
+
+        /// <summary>
+        /// 订单状态改变异常
+        /// </summary>
+        /// <param name="orderStatusToChange">要改变到的状态</param>
+        private void StatusChangeException(OrderStatus orderStatusToChange) {
+            throw new OrderingDomainException($"Is not possible to change the order status from {OrderStatus.Name} to {orderStatusToChange.Name}.");
+        }
     }
 }

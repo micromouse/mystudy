@@ -1,21 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Ordering.Api {
+    /// <summary>
+    /// Ordering.API
+    /// </summary>
     public class Program {
+        /// <summary>
+        /// 入口
+        /// </summary>
+        /// <param name="args">参数</param>
         public static void Main(string[] args) {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .Build()
+                .Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        /// <summary>
+        /// 建立WebHostBuilder
+        /// </summary>
+        /// <param name="args">参数</param>
+        /// <returns>WebHostBuilder</returns>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) {
+            return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+        }
     }
 }
