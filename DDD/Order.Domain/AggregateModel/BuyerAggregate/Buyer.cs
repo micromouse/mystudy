@@ -61,7 +61,5 @@ namespace Ordering.Domain.AggregateModel.BuyerAggregate {
                 return payment;
             }
         }
-
-
     }
 }
