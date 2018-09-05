@@ -105,6 +105,9 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
             }
         }
 
+        /// <summary>
+        /// 设置订单状态为已取消
+        /// </summary>
         public void SetCancelledStatus() {
             if (_orderStatusId == OrderStatus.Paid.Id || _orderStatusId == OrderStatus.Shipped.Id) {
                 this.StatusChangeException(OrderStatus.Cancelled);
@@ -115,6 +118,21 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
             this.AddDomainEvent(new OrderCancelledDomainEvent(this));
         }
 
+        /// <summary>
+        /// 设置付款方式Id
+        /// </summary>
+        /// <param name="id">付款方式Id</param>
+        public void SetPaymentId(int id) {
+            _paymentMethodId = id;
+        }
+
+        /// <summary>
+        /// 设置买家Id
+        /// </summary>
+        /// <param name="id">买家Id</param>
+        public void SetBuyerId(int id) {
+            _buyerId = id;
+        }
 
         /// <summary>
         /// 订单状态改变异常
