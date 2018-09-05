@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Ordering.Api.Infrastructure.AutofacModules;
+using Ordering.Infrastructure;
+using System;
+using System.Reflection;
 
 namespace Ordering.Api {
     /// <summary>
@@ -23,9 +30,25 @@ namespace Ordering.Api {
         /// 配置服务
         /// </summary>
         /// <param name="services">IServiceCollection</param>
-        public void ConfigureServices(IServiceCollection services) {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+        /// <returns>Autofac服务提供者</returns>
+        public IServiceProvider ConfigureServices(IServiceCollection services) {
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddControllersAsServices();
 
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<OrderingDbContext>(options =>
+                {
+                    options.UseSqlServer(Configuration["DefaultConnection"],
+                        sqlServerOptionsAction: sqlOptions =>
+                        {
+                            sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                            sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                        });
+                },
+                ServiceLifetime.Scoped);
+
+            //添加swagger
             services.AddSwaggerGen(options =>
             {
                 options.DescribeAllEnumsAsStrings();
@@ -36,6 +59,12 @@ namespace Ordering.Api {
                     TermsOfService = "Terms Of Service"
                 });
             });
+
+            var container = new ContainerBuilder();
+            container.Populate(services);
+            container.RegisterModule(new MediatorModule());
+            container.RegisterModule(new ApplicationModule(Configuration["DefaultConnection"]));
+            return new AutofacServiceProvider(container.Build());
         }
 
         /// <summary>

@@ -4,7 +4,6 @@ using Ordering.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Ordering.Domain.AggregateModel.BuyerAggregate {
     /// <summary>
@@ -13,9 +12,11 @@ namespace Ordering.Domain.AggregateModel.BuyerAggregate {
     public class Buyer : Entity, IAggregateRoot {
         private List<PaymentMethod> _paymentMethods;
 
+        #region 公共属性
         public string IdentityGuid { get; private set; }
         public string Name { get; private set; }
         public IEnumerable<PaymentMethod> PaymentMethods => _paymentMethods.AsReadOnly();
+        #endregion
 
         /// <summary>
         /// 初始化卖家

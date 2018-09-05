@@ -60,4 +60,5 @@ namespace Ordering.Api.Applications.Commands {
             return true;
         }
     }
+
 }

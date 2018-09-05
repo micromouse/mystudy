@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Ordering.Infrastructure;
+using Ordering.Api.Infrastructure;
 
 namespace Ordering.Api {
     /// <summary>
@@ -13,6 +15,7 @@ namespace Ordering.Api {
         public static void Main(string[] args) {
             CreateWebHostBuilder(args)
                 .Build()
+                .MigrateDbContext<OrderingDbContext>()
                 .Run();
         }
 

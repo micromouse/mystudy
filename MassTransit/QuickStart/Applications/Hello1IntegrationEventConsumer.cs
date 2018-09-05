@@ -1,8 +1,6 @@
 ﻿using IntegrationEvent;
 using MassTransit;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace QuickStart.Applications {
@@ -18,10 +16,6 @@ namespace QuickStart.Applications {
         public async Task Consume(ConsumeContext<IHelloIntegrationEvent> context) {
             await Console.Out.WriteLineAsync($"Hello1消费了Hello集成事件:{context.Message.Text}");
 
-            Initializer.Initial<DbContext>((register) =>
-            {
-                register(this.GetType().Assembly);
-            });
         }
     }
 

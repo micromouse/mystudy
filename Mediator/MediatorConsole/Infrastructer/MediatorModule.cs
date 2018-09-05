@@ -26,6 +26,12 @@ namespace DXQ.Study.Mediator.MediatorConsole.Infrastructer {
             //注入HelloeventHandler所在程序集所有INotificationHandler,可分配给注册类型一个接近开放泛型类型的实例
             builder.RegisterAssemblyTypes(typeof(HelloeventHandler).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(INotificationHandler<>));
 
+            builder.Register<ServiceFactory>(ctx =>
+            {
+                var c = ctx.Resolve<IComponentContext>();
+                return t => c.TryResolve(t, out object o) ? o : null;
+            });
+            /*
             builder.Register<SingleInstanceFactory>(context =>
             {
                 var componentContext = context.Resolve<IComponentContext>();
@@ -36,6 +42,7 @@ namespace DXQ.Study.Mediator.MediatorConsole.Infrastructer {
                 var componentContext = context.Resolve<IComponentContext>();
                 return t => (IEnumerable<object>)componentContext.Resolve(typeof(IEnumerable<>).MakeGenericType(t));
             });
+            */
         }
     }
 }

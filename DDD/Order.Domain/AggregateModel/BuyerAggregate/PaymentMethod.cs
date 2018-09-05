@@ -23,6 +23,13 @@ namespace Ordering.Domain.AggregateModel.BuyerAggregate {
         /// <summary>
         /// 初始化付款方式
         /// </summary>
+        protected PaymentMethod() {
+
+        }
+
+        /// <summary>
+        /// 初始化付款方式
+        /// </summary>
         /// <param name="cardTypeId">卡类型Id</param>
         /// <param name="alias">别名</param>
         /// <param name="cardNubmer">卡号</param>

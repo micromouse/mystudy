@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ReBus\ReBus.Receiver\ReBus.Receiver.csproj" />
     <ProjectReference Include="..\IntegrationEvent\IntegrationEvent.csproj" />
   </ItemGroup>
 
