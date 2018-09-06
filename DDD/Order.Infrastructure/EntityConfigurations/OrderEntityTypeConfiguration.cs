@@ -19,7 +19,7 @@ namespace Ordering.Infrastructure.EntityConfigurations {
             builder.Property(o => o.Id).ForSqlServerUseSequenceHiLo("orderseq", OrderingDbContext.DEFAULT_SCHEMA);
 
             builder.Ignore(o => o.DomainEvents);
-            builder.OwnsOne(o => o.Address);
+            builder.OwnsOne(o => o.OrderAddress);
 
             builder.Property<DateTime>("OrderDate").IsRequired();
             builder.Property<int?>("BuyerId").IsRequired(false);

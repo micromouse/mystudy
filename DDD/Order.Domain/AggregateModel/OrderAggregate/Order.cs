@@ -25,7 +25,7 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
         /// <summary>
         /// 地址
         /// </summary>
-        public Address Address { get; private set; }
+        public Address OrderAddress { get; private set; }
         /// <summary>
         /// 买家Id
         /// </summary>
@@ -79,7 +79,7 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
             _paymentMethodId = paymentMethodId;
             _orderStatusId = OrderStatus.Submitted.Id;
             _orderDate = DateTime.Now;
-            Address = address;
+            OrderAddress = address;
             this.AddDomainEvent(new OrderStartedDomainEvent(this, userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration));
         }
 
