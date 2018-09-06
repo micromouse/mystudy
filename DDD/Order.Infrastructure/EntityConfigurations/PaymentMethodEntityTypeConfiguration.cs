@@ -27,7 +27,7 @@ namespace Ordering.Infrastructure.EntityConfigurations {
 
             builder.HasOne(o => o.CardType)
                 .WithMany()
-                .HasForeignKey("FK_CardTypeId");
+                .HasForeignKey("CardTypeId");
         }
     }
 }

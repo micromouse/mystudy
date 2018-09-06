@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.AggregateModel.OrderAggregate;
 using Ordering.Domain.SeedWork;
 
@@ -28,15 +29,17 @@ namespace Ordering.Infrastructure.Repositories {
         /// <param name="order">订单</param>
         /// <returns>添加的订单</returns>
         public Order Add(Order order) {
-            throw new System.NotImplementedException();
+            return _context.Orders
+                .Add(order)
+                .Entity;
         }
 
         /// <summary>
         /// 更新订单
         /// </summary>
         /// <param name="order">订单</param>
-        public Task<Order> GetAsync(int orderId) {
-            throw new System.NotImplementedException();
+        public async Task<Order> GetAsync(int orderId) {
+            return await _context.Orders.FindAsync(orderId);
         }
 
         /// <summary>
@@ -45,7 +48,7 @@ namespace Ordering.Infrastructure.Repositories {
         /// <param name="orderId">订单Id</param>
         /// <returns>订单</returns>
         public void Update(Order order) {
-            throw new System.NotImplementedException();
+            _context.Entry(order).State = EntityState.Modified;
         }
     }
 }

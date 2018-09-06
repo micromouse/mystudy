@@ -33,15 +33,15 @@ namespace Ordering.Infrastructure.EntityConfigurations {
 
             builder.HasOne<PaymentMethod>()
                 .WithMany()
-                .HasForeignKey("FK_PaymentMehtodId")
+                .HasForeignKey("PaymentMethodId")
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne<Buyer>()
                 .WithMany()
-                .HasForeignKey("FK_BuyerId");
+                .HasForeignKey("BuyerId");
             builder.HasOne<OrderStatus>()
                 .WithMany()
-                .HasForeignKey("FK_OrderStatusId");
+                .HasForeignKey("OrderStatusId");
         }
     }
 }

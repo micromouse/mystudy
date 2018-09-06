@@ -43,7 +43,9 @@ namespace Ordering.Api.Applications.DomainEventHandlers.OrderStartedEvent {
             var buyerUpdated = existBuyer ?
                 _buyerRepository.Update(buyer) :
                 _buyerRepository.Add(buyer);
-            
+
+            await _buyerRepository.UnitOfWork
+                .SaveEntitiesAsync(cancellationToken);
         }
     }
 }

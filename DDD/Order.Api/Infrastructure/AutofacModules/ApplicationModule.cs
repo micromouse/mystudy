@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Ordering.Api.Applications.Queries;
+using Ordering.Domain.AggregateModel.BuyerAggregate;
 using Ordering.Domain.AggregateModel.OrderAggregate;
 using Ordering.Infrastructure.Idempotency;
 using Ordering.Infrastructure.Repositories;
@@ -38,6 +39,10 @@ namespace Ordering.Api.Infrastructure.AutofacModules {
 
             builder.RegisterType<OrderRepository>()
                 .As<IOrderRepository>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<BuyerRepository>()
+                .As<IBuyerRepository>()
                 .InstancePerLifetimeScope();
         }
     }

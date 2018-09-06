@@ -31,7 +31,7 @@ namespace Ordering.Domain.Events {
                                         int cardTypeId, string cardNumber, string cardSecurityNumber,
                                         string cardHolderName, DateTime cardExpiration) {
             Order = order;
-            UserId = UserId;
+            UserId = userId;
             UserName = userName;
             CardTypeId = cardTypeId;
             CardNumber = cardNumber;

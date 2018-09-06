@@ -77,6 +77,7 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
                     int? buyerId = null, int? paymentMethodId = null) : this() {
             _buyerId = buyerId;
             _paymentMethodId = paymentMethodId;
+            _orderStatusId = OrderStatus.Submitted.Id;
             _orderDate = DateTime.Now;
             Address = address;
             this.AddDomainEvent(new OrderStartedDomainEvent(this, userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration));

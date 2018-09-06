@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using Ordering.Domain.SeedWork;
+using System.Threading.Tasks;
 
 namespace Ordering.Domain.AggregateModel.BuyerAggregate {
     /// <summary>
-    /// 卖家接口
+    /// 买家接口
     /// </summary>
-    public interface IBuyerRepository {
+    public interface IBuyerRepository : IRepository<Buyer> {
         /// <summary>
         /// 添加买家
         /// </summary>

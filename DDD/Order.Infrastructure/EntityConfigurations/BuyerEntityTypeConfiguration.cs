@@ -23,7 +23,7 @@ namespace Ordering.Infrastructure.EntityConfigurations {
             builder.Property(o => o.Name).IsRequired();
             builder.HasMany(o => o.PaymentMethods)
                 .WithOne()
-                .HasForeignKey("FK_BuyerId")
+                .HasForeignKey("BuyerId")
                 .OnDelete(DeleteBehavior.Cascade);
 
             var navigation = builder.Metadata.FindNavigation(nameof(Buyer.PaymentMethods));

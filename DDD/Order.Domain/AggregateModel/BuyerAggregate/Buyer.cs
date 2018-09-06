@@ -47,8 +47,8 @@ namespace Ordering.Domain.AggregateModel.BuyerAggregate {
         /// <param name="orderId">订单Id</param>
         /// <returns></returns>
         public PaymentMethod VerifyOrAddPaymentMethod(int cardTypeId, string alias, string cardNumber,
-                                                        string securityNumber, string cardHolderName,
-                                                        DateTime expiration, int orderId) {
+                                                      string securityNumber, string cardHolderName,
+                                                      DateTime expiration, int orderId) {
             var existingPayment = _paymentMethods.SingleOrDefault(x => x.IsEqualTo(cardTypeId, cardNumber, expiration));
 
             if (existingPayment != null) {

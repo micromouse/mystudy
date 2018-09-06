@@ -10,7 +10,7 @@ using Ordering.Infrastructure;
 namespace Ordering.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderingDbContext))]
-    [Migration("20180905101259_Initial")]
+    [Migration("20180906100800_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,15 +89,11 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.Property<DateTime>("Expiration");
 
-                    b.Property<int?>("FK_BuyerId");
-
-                    b.Property<int>("FK_CardTypeId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("FK_BuyerId");
+                    b.HasIndex("BuyerId");
 
-                    b.HasIndex("FK_CardTypeId");
+                    b.HasIndex("CardTypeId");
 
                     b.ToTable("paymentmethods","ordering");
                 });
@@ -114,27 +110,23 @@ namespace Ordering.Infrastructure.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("FK_BuyerId");
-
-                    b.Property<int?>("FK_OrderStatusId");
-
-                    b.Property<int?>("FK_PaymentMehtodId");
-
                     b.Property<DateTime>("OrderDate");
 
                     b.Property<int>("OrderStatusId");
+
+                    b.Property<int?>("OrderStatusId1");
 
                     b.Property<int?>("PaymentMethodId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FK_BuyerId");
-
-                    b.HasIndex("FK_OrderStatusId");
-
-                    b.HasIndex("FK_PaymentMehtodId");
+                    b.HasIndex("BuyerId");
 
                     b.HasIndex("OrderStatusId");
+
+                    b.HasIndex("OrderStatusId1");
+
+                    b.HasIndex("PaymentMethodId");
 
                     b.ToTable("orders","ordering");
                 });
@@ -206,12 +198,12 @@ namespace Ordering.Infrastructure.Migrations
                 {
                     b.HasOne("Ordering.Domain.AggregateModel.BuyerAggregate.Buyer")
                         .WithMany("PaymentMethods")
-                        .HasForeignKey("FK_BuyerId")
+                        .HasForeignKey("BuyerId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Ordering.Domain.AggregateModel.BuyerAggregate.CardType", "CardType")
                         .WithMany()
-                        .HasForeignKey("FK_CardTypeId")
+                        .HasForeignKey("CardTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -219,21 +211,21 @@ namespace Ordering.Infrastructure.Migrations
                 {
                     b.HasOne("Ordering.Domain.AggregateModel.BuyerAggregate.Buyer")
                         .WithMany()
-                        .HasForeignKey("FK_BuyerId");
+                        .HasForeignKey("BuyerId");
 
                     b.HasOne("Ordering.Domain.AggregateModel.OrderAggregate.OrderStatus")
                         .WithMany()
-                        .HasForeignKey("FK_OrderStatusId");
-
-                    b.HasOne("Ordering.Domain.AggregateModel.BuyerAggregate.PaymentMethod")
-                        .WithMany()
-                        .HasForeignKey("FK_PaymentMehtodId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Ordering.Domain.AggregateModel.OrderAggregate.OrderStatus", "OrderStatus")
                         .WithMany()
-                        .HasForeignKey("OrderStatusId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrderStatusId1");
+
+                    b.HasOne("Ordering.Domain.AggregateModel.BuyerAggregate.PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.OwnsOne("Ordering.Domain.AggregateModel.OrderAggregate.Address", "Address", b1 =>
                         {

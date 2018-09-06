@@ -94,28 +94,26 @@ namespace Ordering.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    FK_CardTypeId = table.Column<int>(nullable: false),
+                    CardTypeId = table.Column<int>(nullable: false),
                     Alias = table.Column<string>(maxLength: 200, nullable: false),
                     BuyerId = table.Column<int>(nullable: false),
                     CardHolderName = table.Column<string>(maxLength: 200, nullable: false),
                     CardNumber = table.Column<string>(maxLength: 25, nullable: false),
-                    CardTypeId = table.Column<int>(nullable: false),
-                    Expiration = table.Column<DateTime>(nullable: false),
-                    FK_BuyerId = table.Column<int>(nullable: true)
+                    Expiration = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_paymentmethods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_paymentmethods_buyers_FK_BuyerId",
-                        column: x => x.FK_BuyerId,
+                        name: "FK_paymentmethods_buyers_BuyerId",
+                        column: x => x.BuyerId,
                         principalSchema: "ordering",
                         principalTable: "buyers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_paymentmethods_cardtypes_FK_CardTypeId",
-                        column: x => x.FK_CardTypeId,
+                        name: "FK_paymentmethods_cardtypes_CardTypeId",
+                        column: x => x.CardTypeId,
                         principalSchema: "ordering",
                         principalTable: "cardtypes",
                         principalColumn: "Id",
@@ -128,37 +126,21 @@ namespace Ordering.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    OrderStatusId = table.Column<int>(nullable: false),
+                    OrderStatusId1 = table.Column<int>(nullable: true),
                     BuyerId = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    FK_BuyerId = table.Column<int>(nullable: true),
-                    FK_OrderStatusId = table.Column<int>(nullable: true),
-                    FK_PaymentMehtodId = table.Column<int>(nullable: true),
                     OrderDate = table.Column<DateTime>(nullable: false),
+                    OrderStatusId = table.Column<int>(nullable: false),
                     PaymentMethodId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_orders_buyers_FK_BuyerId",
-                        column: x => x.FK_BuyerId,
+                        name: "FK_orders_buyers_BuyerId",
+                        column: x => x.BuyerId,
                         principalSchema: "ordering",
                         principalTable: "buyers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_orders_orderstatus_FK_OrderStatusId",
-                        column: x => x.FK_OrderStatusId,
-                        principalSchema: "ordering",
-                        principalTable: "orderstatus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_orders_paymentmethods_FK_PaymentMehtodId",
-                        column: x => x.FK_PaymentMehtodId,
-                        principalSchema: "ordering",
-                        principalTable: "paymentmethods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -168,6 +150,20 @@ namespace Ordering.Infrastructure.Migrations
                         principalTable: "orderstatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_orders_orderstatus_OrderStatusId1",
+                        column: x => x.OrderStatusId1,
+                        principalSchema: "ordering",
+                        principalTable: "orderstatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_orders_paymentmethods_PaymentMethodId",
+                        column: x => x.PaymentMethodId,
+                        principalSchema: "ordering",
+                        principalTable: "paymentmethods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,22 +206,10 @@ namespace Ordering.Infrastructure.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_orders_FK_BuyerId",
+                name: "IX_orders_BuyerId",
                 schema: "ordering",
                 table: "orders",
-                column: "FK_BuyerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_orders_FK_OrderStatusId",
-                schema: "ordering",
-                table: "orders",
-                column: "FK_OrderStatusId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_orders_FK_PaymentMehtodId",
-                schema: "ordering",
-                table: "orders",
-                column: "FK_PaymentMehtodId");
+                column: "BuyerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_orders_OrderStatusId",
@@ -234,16 +218,28 @@ namespace Ordering.Infrastructure.Migrations
                 column: "OrderStatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_paymentmethods_FK_BuyerId",
+                name: "IX_orders_OrderStatusId1",
                 schema: "ordering",
-                table: "paymentmethods",
-                column: "FK_BuyerId");
+                table: "orders",
+                column: "OrderStatusId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_paymentmethods_FK_CardTypeId",
+                name: "IX_orders_PaymentMethodId",
+                schema: "ordering",
+                table: "orders",
+                column: "PaymentMethodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_paymentmethods_BuyerId",
                 schema: "ordering",
                 table: "paymentmethods",
-                column: "FK_CardTypeId");
+                column: "BuyerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_paymentmethods_CardTypeId",
+                schema: "ordering",
+                table: "paymentmethods",
+                column: "CardTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

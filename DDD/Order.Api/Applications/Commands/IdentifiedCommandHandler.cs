@@ -51,8 +51,9 @@ namespace Ordering.Api.Applications.Commands {
                 try {
                     var result = await _mediator.Send(request.Command);
                     return result;
-                } catch (Exception) {
-                    return default(R);
+                } catch (Exception ex) {
+                    throw ex;
+                    //return default(R);
                 }
             }
         }

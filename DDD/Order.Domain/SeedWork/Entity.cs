@@ -49,9 +49,9 @@ namespace Ordering.Domain.SeedWork {
         #endregion
 
         /// <summary>
-        /// 实体是否未初始化
+        /// 实体Id是否未赋值
         /// </summary>
-        /// <returns>实体是否未初始化</returns>
+        /// <returns>实体Id是否未赋值</returns>
         public bool IsTransient() {
             return this.Id == default(Int32);
         }

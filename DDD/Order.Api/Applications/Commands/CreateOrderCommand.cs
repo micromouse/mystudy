@@ -76,7 +76,6 @@ namespace Ordering.Api.Applications.Commands {
         /// <summary>
         /// 订单项集合
         /// </summary>
-        [DataMember]
         public IEnumerable<OrderItemDTO> OrderItems => _orderItems;
         #endregion
 
@@ -108,7 +107,7 @@ namespace Ordering.Api.Applications.Commands {
                                 string cardHolderName, DateTime cardExpiration, string cardSecurityNumber,
                                 int cardTypeId) : this() {
             _orderItems = orderItems;
-            UserId = UserId;
+            UserId = userId;
             UserName = userName;
             City = city;
             Street = street;
