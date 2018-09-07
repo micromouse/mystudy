@@ -37,9 +37,9 @@ namespace Ordering.IntegrationTests {
                 new OrderItemDTO{ProductId=2,ProductName="vivo x22",Discount=0.8m,UnitPrice=2500,Units=2,PictureUrl="http://www.baidu.com/images/2.jpg"},
                 new OrderItemDTO{ProductId=3,ProductName="vivo x23",Discount=0.7m,UnitPrice=3500,Units=2,PictureUrl="http://www.baidu.com/images/3.jpg"}
             };
-            var order = new CreateOrderCommand(orderItems: orderItems, userId: Guid.NewGuid().ToString(), userName: "张三",
-                                               city: "成都市", street: "东大街", state: "四川省", country: "中国", zipcode: "610051",
-                                               cardNumber: "4392250804822970", cardHolderName: "张三", cardExpiration: DateTime.Now.AddYears(10),
+            var order = new CreateOrderCommand(orderItems: orderItems, userId: Guid.NewGuid().ToString(), userName: "李四",
+                                               city: "成都市", street: "西大街", state: "四川省", country: "中国", zipcode: "610052",
+                                               cardNumber: "4392250804822970", cardHolderName: "李四", cardExpiration: DateTime.Now.AddYears(10),
                                                cardSecurityNumber: "632", cardTypeId: CardType.Visa.Id);
 
             return JsonConvert.SerializeObject(order);

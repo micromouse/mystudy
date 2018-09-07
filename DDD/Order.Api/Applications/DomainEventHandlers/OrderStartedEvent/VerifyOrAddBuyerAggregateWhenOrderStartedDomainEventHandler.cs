@@ -44,8 +44,9 @@ namespace Ordering.Api.Applications.DomainEventHandlers.OrderStartedEvent {
                 _buyerRepository.Update(buyer) :
                 _buyerRepository.Add(buyer);
 
+            //分发领域事件
             await _buyerRepository.UnitOfWork
-                .SaveEntitiesAsync(cancellationToken);
+                .SaveEntitiesAsync();
         }
     }
 }

@@ -1,11 +1,14 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Ordering.Domain.AggregateModel.BuyerAggregate;
 using Ordering.Domain.AggregateModel.OrderAggregate;
 using Ordering.Domain.SeedWork;
 using Ordering.Infrastructure.EntityConfigurations;
 using System;
+using System.Data;
+using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,10 +21,12 @@ namespace Ordering.Infrastructure {
 
         #region 公共属性
         public const string DEFAULT_SCHEMA = "ordering";
+        public IDbTransaction DbTransaction => ((IInfrastructure<DbTransaction>)Database.CurrentTransaction).Instance;
         public DbSet<Order> Orders { get; set; }
         public DbSet<Buyer> Buyers { get; set; }
         #endregion
 
+        #region 构造函数
         /// <summary>
         /// 初始化订单DbContext
         /// </summary>
@@ -38,6 +43,7 @@ namespace Ordering.Infrastructure {
         public OrderingDbContext(DbContextOptions<OrderingDbContext> options, IMediator mediator) : this(options) {
             _mediator = mediator;
         }
+        #endregion
 
         /// <summary>
         /// 建立模型
@@ -55,14 +61,40 @@ namespace Ordering.Infrastructure {
         }
 
         /// <summary>
-        /// 分发事件,保存改变实体
+        /// 分发事件,保存所有改变
         /// </summary>
         /// <param name="cancellationToken">取消Token</param>
+        /// <param name="isOnlyDispatchDomainEvents">是否仅仅分发领域事件,缺省为是</param>
         /// <returns>是否成功保存</returns>
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken)) {
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken), bool isOnlyDispatchDomainEvents = true) {
             await _mediator.DispatchDomainEventsAsync(this);
-            var result = await base.SaveChangesAsync(cancellationToken);
+            if (!isOnlyDispatchDomainEvents) {
+                await base.SaveChangesAsync(cancellationToken);
+            }
             return true;
+
+            #region 使用数据库事务方式
+            /*
+            try {
+                //根聚合开始事务
+                var existsTransaction = this.Database.CurrentTransaction != null;
+                if (!existsTransaction) await this.Database.BeginTransactionAsync();
+
+                await _mediator.DispatchDomainEventsAsync(this);
+
+                //只有顶级的聚合根才能提交事务
+                if (!existsTransaction) {
+                    await base.SaveChangesAsync(cancellationToken);
+                    this.Database.CommitTransaction();
+                }
+
+                return true;
+            } catch {
+                this.Database.RollbackTransaction();
+                throw;
+            }
+            */
+            #endregion
         }
     }
 
