@@ -9,11 +9,11 @@ namespace Ordering.Domain.AggregateModel.OrderAggregate {
     /// </summary>
     public class Address : ValueObject {
         #region 公共属性
-        public string Street { get; }
-        public string City { get; }
-        public string State { get; }
-        public string Country { get; }
-        public string ZipCode { get; }
+        public string Street { get; private set; }
+        public string City { get; private set; }
+        public string State { get; private set; }
+        public string Country { get; private set; }
+        public string ZipCode { get; private set; }
         #endregion
 
         /// <summary>

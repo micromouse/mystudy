@@ -42,7 +42,7 @@ namespace Ordering.Api {
                     options.UseSqlServer(Configuration["DefaultConnection"],
                         sqlServerOptionsAction: sqlOptions =>
                         {
-                            sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                            sqlOptions.MigrationsAssembly("Ordering.Api");
                             sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                         });
                 },

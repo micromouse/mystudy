@@ -18,8 +18,12 @@ namespace Ordering.Infrastructure.EntityConfigurations {
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Id).ForSqlServerUseSequenceHiLo("orderseq", OrderingDbContext.DEFAULT_SCHEMA);
 
-            builder.Ignore(o => o.DomainEvents);
-            builder.OwnsOne(o => o.OrderAddress);
+            builder.Ignore(o => o.DomainEvents).Ignore(o => o.OrderStatus);
+            builder.OwnsOne(o => o.Address).Property(o => o.Street).HasColumnName("Street");
+            builder.OwnsOne(o => o.Address).Property(o => o.City).HasColumnName("City");
+            builder.OwnsOne(o => o.Address).Property(o => o.State).HasColumnName("State");
+            builder.OwnsOne(o => o.Address).Property(o => o.Country).HasColumnName("Country");
+            builder.OwnsOne(o => o.Address).Property(o => o.ZipCode).HasColumnName("ZipCode");
 
             builder.Property<DateTime>("OrderDate").IsRequired();
             builder.Property<int?>("BuyerId").IsRequired(false);
@@ -41,7 +45,9 @@ namespace Ordering.Infrastructure.EntityConfigurations {
                 .HasForeignKey("BuyerId");
             builder.HasOne<OrderStatus>()
                 .WithMany()
-                .HasForeignKey("OrderStatusId");
+                .HasForeignKey("OrderStatusId")
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired();
         }
     }
 }

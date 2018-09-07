@@ -51,6 +51,7 @@ namespace Ordering.Infrastructure {
             modelBuilder.ApplyConfiguration(new CardTypeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OrderStatusEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BuyerEntityTypeConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
 
         /// <summary>

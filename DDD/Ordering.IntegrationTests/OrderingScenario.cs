@@ -34,8 +34,8 @@ namespace Ordering.IntegrationTests {
         private string GetCreateOrder() {
             var orderItems = new List<OrderItemDTO> {
                 new OrderItemDTO{ProductId=1,ProductName="vivo x21",Discount=0.9m,UnitPrice=1500,Units=2,PictureUrl="http://www.baidu.com/images/1.jpg"},
-                new OrderItemDTO{ProductId=1,ProductName="vivo x22",Discount=0.8m,UnitPrice=2500,Units=2,PictureUrl="http://www.baidu.com/images/2.jpg"},
-                new OrderItemDTO{ProductId=1,ProductName="vivo x23",Discount=0.7m,UnitPrice=3500,Units=2,PictureUrl="http://www.baidu.com/images/3.jpg"}
+                new OrderItemDTO{ProductId=2,ProductName="vivo x22",Discount=0.8m,UnitPrice=2500,Units=2,PictureUrl="http://www.baidu.com/images/2.jpg"},
+                new OrderItemDTO{ProductId=3,ProductName="vivo x23",Discount=0.7m,UnitPrice=3500,Units=2,PictureUrl="http://www.baidu.com/images/3.jpg"}
             };
             var order = new CreateOrderCommand(orderItems: orderItems, userId: Guid.NewGuid().ToString(), userName: "张三",
                                                city: "成都市", street: "东大街", state: "四川省", country: "中国", zipcode: "610051",
