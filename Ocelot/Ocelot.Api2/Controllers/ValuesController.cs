@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ocelot.Api2.Controllers {
-    [Route("api/[controller]")]
+    [Route("api/v2/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase {
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get() {
-            return new string[] { "value1", "value2" };
+            return new string[] { "value1 from api2", "value2 from api2" };
         }
 
         // GET api/values/5

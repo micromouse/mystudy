@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Ocelot.Getway.Controllers {
     [Route("api/[controller]")]
@@ -11,7 +8,7 @@ namespace Ocelot.Getway.Controllers {
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get() {
-            return new string[] { "value1", "value2" };
+            return new string[] { "value1 from ocelot", "value2 from ocelot" };
         }
 
         // GET api/values/5

@@ -16,6 +16,7 @@ namespace Ocelot.Getway {
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(config => config.AddJsonFile("ocelot.json"))
                 .UseStartup<Startup>();
     }
 }
