@@ -69,7 +69,7 @@ namespace DataStructureDemo {
                 }
             } else {
                 var prevNode = GetNodeByIndex(index - 1);
-                newNode.Next = prevNode;
+                newNode.Next = prevNode.Next;
                 prevNode.Next = newNode;
             }
 
