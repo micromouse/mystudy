@@ -25,24 +25,6 @@ namespace DataStructureDemo {
         }
 
         /// <summary>
-        /// 获得索引位置节点
-        /// </summary>
-        /// <param name="index">索引</param>
-        /// <returns>节点</returns>
-        private SingleLinkedNode<T> GetNodeByIndex(int index) {
-            if (index < 0 || index >= count) {
-                throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
-            }
-
-            var node = head;
-            for (int i = 0; i < index; i++) {
-                node = node.Next;
-            }
-
-            return node;
-        }
-
-        /// <summary>
         /// 初始化单链表集合
         /// </summary>
         public SingleLinkedList() {
@@ -92,6 +74,49 @@ namespace DataStructureDemo {
             }
 
             count++;
+        }
+
+        /// <summary>
+        /// 删除指定位置节点
+        /// </summary>
+        /// <param name="index">索引</param>
+        public void RemoveAt(int index) {
+            if (index < 0 || index > count) {
+                throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
+            } else if (index == 0) {
+                var deleteNode = head;
+                head = head.Next;
+                deleteNode = null;
+            } else {
+                var prevNode = GetNodeByIndex(index - 1);
+                if (prevNode.Next == null) {
+                    throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
+                }
+
+                var deleteNode = prevNode.Next;
+                prevNode.Next = deleteNode.Next;
+                deleteNode = null;
+            }
+
+            count--;
+        }
+
+        /// <summary>
+        /// 获得索引位置节点
+        /// </summary>
+        /// <param name="index">索引</param>
+        /// <returns>节点</returns>
+        private SingleLinkedNode<T> GetNodeByIndex(int index) {
+            if (index < 0 || index >= count) {
+                throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
+            }
+
+            var node = head;
+            for (int i = 0; i < index; i++) {
+                node = node.Next;
+            }
+
+            return node;
         }
     }
 
