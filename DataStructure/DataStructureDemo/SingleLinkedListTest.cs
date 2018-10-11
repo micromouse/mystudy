@@ -72,6 +72,57 @@ namespace DataStructureDemo {
         }
 
         /// <summary>
+        /// 删除首节点,顺序输出正确
+        /// </summary>
+        [Fact]
+        public void Removenode_0_sequareoutput_correct() {
+            var list = this.GetSingleLinkedList();
+
+            list.RemoveAt(0);
+
+            var output = "";
+            for (int i = 0; i < list.Count; i++) {
+                output += list[i];
+            }
+            Assert.Equal(3, list.Count);
+            Assert.Equal("345", output);
+        }
+
+        /// <summary>
+        /// 删除所有位置2的节点,顺序输出正确
+        /// </summary>
+        [Fact]
+        public void Removenode_2_sequareoutput_correct() {
+            var list = this.GetSingleLinkedList();
+
+            list.RemoveAt(2);
+
+            var output = "";
+            for (int i = 0; i < list.Count; i++) {
+                output += list[i];
+            }
+            Assert.Equal(3, list.Count);
+            Assert.Equal("235", output);
+        }
+
+        /// <summary>
+        /// 删除末尾节点,顺序输出正确
+        /// </summary>
+        [Fact]
+        public void Removenode_4_sequareoutput_correct() {
+            var list = this.GetSingleLinkedList();
+
+            list.RemoveAt(3);
+
+            var output = "";
+            for (int i = 0; i < list.Count; i++) {
+                output += list[i];
+            }
+            Assert.Equal(3, list.Count);
+            Assert.Equal("234", output);
+        }
+
+        /// <summary>
         /// 获得单链表集合
         /// </summary>
         /// <returns>单链表集合</retur`ns>
