@@ -121,7 +121,7 @@ namespace DataStructureDemo {
         /// </summary>
         /// <param name="index">索引</param>
         /// <param name="item">数据域</param>
-        public void InsertBefore(int index,T item) {
+        public void InsertBefore(int index, T item) {
             var newNode = new DoubleLinkedNode<T>(item);
             var nextNode = this.GetNodeByIndex(index);
 
@@ -145,6 +145,34 @@ namespace DataStructureDemo {
             }
 
             count++;
+        }
+
+        /// <summary>
+        /// 删除索引位置节点
+        /// </summary>
+        /// <param name="index">索引</param>
+        public void RemoveAt(int index) {
+            if (index < 0 || index >= count) {
+                throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
+            } else if (index == 0) {
+                var deleteNode = head;
+                head = head.Next;
+                deleteNode = null;
+            } else {
+                var prevNode = this.GetNodeByIndex(index - 1);
+                if (prevNode.Next == null) {
+                    throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
+                }
+
+                var deleteNode = prevNode.Next;
+                var nextNode = deleteNode.Next;
+                prevNode.Next = nextNode;
+                if (nextNode != null) nextNode.Prev = prevNode;
+
+                deleteNode = null;
+            }
+
+            count--;
         }
 
         /// <summary>

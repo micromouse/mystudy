@@ -57,7 +57,7 @@ namespace DataStructureDemo {
         public void Insert(int index, T item) {
             var newNode = new SingleLinkedNode<T>(item);
 
-            if (index < 0 || index > count) {
+            if (index < 0 || index >= count) {
                 throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
             } else if (index == 0) {
                 //在头节点插入新节点
