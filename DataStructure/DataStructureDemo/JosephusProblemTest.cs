@@ -32,7 +32,7 @@ namespace DataStructureDemo {
 
             _output.WriteLine($"总人数={10}");
             _output.WriteLine($"出对号={number}");
-            _output.WriteLine($"出对人员={output}");
+            _output.WriteLine($"出对顺序={output}");
             Assert.Equal("4,8,2,7,3,10,9,1,6,5", output);
         }
     }
