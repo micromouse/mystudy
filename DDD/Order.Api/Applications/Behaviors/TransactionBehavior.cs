@@ -49,7 +49,7 @@ namespace Ordering.Api.Applications.Behaviors
                 var strategy = _dbContext.Database.CreateExecutionStrategy();
                 await strategy.ExecuteAsync(async () =>
                 {
-                    using (var transaction = _dbContext.BeginTransactionAsync())
+                    using (var transaction = await _dbContext.BeginTransactionAsync())
                     {
                         response = await next();
                         await _dbContext.CommitTransactionAsync(transaction);
