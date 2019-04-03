@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2011
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identtyserver4", "identtyserver4", "{2687B704-7059-451C-A008-BEFC62040D97}"
 EndProject
@@ -101,7 +101,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStructureDemo", "DataSt
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ElasticSearch", "ElasticSearch", "{AC927F3B-0DFA-4E59-BD09-7174F2D504FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticSearchDemo", "ElasticSearchDemo\ElasticSearchDemo.csproj", "{D1251A8F-05EB-43C6-B739-8CD567764AB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElasticSearchDemo", "ElasticSearchDemo\ElasticSearchDemo.csproj", "{D1251A8F-05EB-43C6-B739-8CD567764AB0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElasticSearchConsoleApp", "ElasticSearchConsoleApp\ElasticSearchConsoleApp.csproj", "{303239DB-992A-444A-AB38-D653631F0D8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -253,6 +255,10 @@ Global
 		{D1251A8F-05EB-43C6-B739-8CD567764AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1251A8F-05EB-43C6-B739-8CD567764AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1251A8F-05EB-43C6-B739-8CD567764AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{303239DB-992A-444A-AB38-D653631F0D8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{303239DB-992A-444A-AB38-D653631F0D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{303239DB-992A-444A-AB38-D653631F0D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{303239DB-992A-444A-AB38-D653631F0D8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -294,6 +300,7 @@ Global
 		{67B945AD-399B-4C33-B811-381AE6718EF6} = {04BD2383-1077-43A5-A3BF-FF4912FC62AF}
 		{FF9078C1-5ABC-4BF4-B324-99EBFCC33BFA} = {96F52D62-2D2E-470B-AD28-856560BFFC12}
 		{D1251A8F-05EB-43C6-B739-8CD567764AB0} = {AC927F3B-0DFA-4E59-BD09-7174F2D504FB}
+		{303239DB-992A-444A-AB38-D653631F0D8E} = {AC927F3B-0DFA-4E59-BD09-7174F2D504FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62F26DFC-4A74-4344-B621-E75823B602CF}
