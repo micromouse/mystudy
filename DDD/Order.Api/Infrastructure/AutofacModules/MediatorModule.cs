@@ -1,7 +1,10 @@
 ﻿using Autofac;
+using FluentValidation;
 using MediatR;
+using Ordering.Api.Applications.Behaviors;
 using Ordering.Api.Applications.Commands;
 using Ordering.Api.Applications.DomainEventHandlers.OrderStartedEvent;
+using Ordering.Api.Applications.Validations;
 using System.Reflection;
 
 namespace Ordering.Api.Infrastructure.AutofacModules {
@@ -28,13 +31,21 @@ namespace Ordering.Api.Infrastructure.AutofacModules {
             builder.RegisterAssemblyTypes(typeof(VerifyOrAddBuyerAggregateWhenOrderStartedDomainEventHandler).GetTypeInfo().Assembly)
                 .AsClosedTypesOf(typeof(INotificationHandler<>))
                 .AsImplementedInterfaces();
-                
+
+            //注入验证处理器
+            builder.RegisterAssemblyTypes(typeof(CreateOrderCommandValidator).GetTypeInfo().Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
+                .AsImplementedInterfaces();
 
             builder.Register<ServiceFactory>(ctx =>
             {
                 var componentContext = ctx.Resolve<IComponentContext>();
                 return t => componentContext.TryResolve(t, out object o) ? o : null;
             });
+
+            //注入请求管道
+            builder.RegisterGeneric(typeof(LoggingBehavior<,>)).As(typeof(IPipelineBehavior<,>));
+            builder.RegisterGeneric(typeof(ValidatorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
         }
     }
 }
