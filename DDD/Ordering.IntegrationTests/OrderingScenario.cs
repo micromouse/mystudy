@@ -21,7 +21,8 @@ namespace Ordering.IntegrationTests {
         public async Task Create_order_and_response_ok_status_code() {
             using (var server = CreateServer()) {
                 var content = new StringContent(this.GetCreateOrder(), Encoding.UTF8, "application/json");
-                var response = await server.CreateIdempotentClient()
+                var response = await server
+                    .CreateIdempotentClient()
                     .PostAsync("api/v1/Orders/create", content);
                 response.EnsureSuccessStatusCode();
             }

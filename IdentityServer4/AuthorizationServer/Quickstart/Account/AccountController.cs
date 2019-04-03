@@ -88,7 +88,7 @@ namespace IdentityServer4.Quickstart.UI
                     // denied the consent (even if this client does not require consent).
                     // this will send back an access denied OIDC error response to the client.
                     await _interaction.GrantConsentAsync(context, ConsentResponse.Denied);
-                    
+
                     // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
                     return Redirect(model.ReturnUrl);
                 }
@@ -218,7 +218,7 @@ namespace IdentityServer4.Quickstart.UI
             return Redirect("~/");
         }
 
-        
+
         /// <summary>
         /// Show logout page
         /// </summary>
@@ -229,7 +229,8 @@ namespace IdentityServer4.Quickstart.UI
 
             await HttpContext.SignOutAsync();
             var cookies = Request.Cookies.Keys;
-            foreach (var cookie in cookies) {
+            foreach (var cookie in cookies)
+            {
                 Response.Cookies.Delete(cookie);
             }
 

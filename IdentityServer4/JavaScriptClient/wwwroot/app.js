@@ -1,7 +1,7 @@
 ﻿/// <reference path="oidc-client.js" />
 $(document).ready(function () {
     var config = {
-        authority: 'http://192.168.1.20:5000',
+        authority: 'http://182.150.41.13:8001',
         client_id: 'javascript',
         popup_redirect_uri: 'http://localhost:5003/popupcallback.html',
         redirect_uri: 'http://localhost:5003/login-callback.html',

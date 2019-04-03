@@ -11,7 +11,7 @@ namespace DXQ.Study.IdentityServer4.AuthorizationServer {
     /// </summary>
     public class Program {
         /// <summary>
-        /// Main
+        /// Main Method
         /// </summary>
         /// <param name="args">参数</param>
         public static void Main(string[] args) {
