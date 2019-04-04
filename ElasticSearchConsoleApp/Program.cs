@@ -36,6 +36,7 @@ namespace ElasticSearchConsoleApp {
             };
             var bulkResponse = client.Bulk<StringResponse>(PostData.MultiJson(persons));
             var responseStream = bulkResponse.Body;
+
         }
     }
 }
