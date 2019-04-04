@@ -2,17 +2,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Api.Applications.Commands;
 using Ordering.Api.Applications.Queries;
+using Ordering.Domain.AggregateModel.OrderAggregate;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Ordering.Api.Controllers {
+namespace Ordering.Api.Controllers
+{
     /// <summary>
     /// 订单控制器
     /// </summary>
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase {
+    public class OrdersController : ControllerBase
+    {
         private readonly IMediator _mediator;
         private readonly IOrderQuery _orderQuery;
 
@@ -21,7 +24,8 @@ namespace Ordering.Api.Controllers {
         /// </summary>
         /// <param name="mediator">IMediator</param>
         /// <param name="orderQuery">订单查询</param>
-        public OrdersController(IMediator mediator, IOrderQuery orderQuery) {
+        public OrdersController(IMediator mediator, IOrderQuery orderQuery)
+        {
             _mediator = mediator;
             _orderQuery = orderQuery;
         }
@@ -36,10 +40,12 @@ namespace Ordering.Api.Controllers {
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommand command, [FromHeader(Name = "x-requestid")] string requestId) {
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommand command, [FromHeader(Name = "x-requestid")] string requestId)
+        {
             var commandResult = false;
 
-            if (Guid.TryParse(requestId, out Guid guid) && guid != Guid.Empty) {
+            if (Guid.TryParse(requestId, out Guid guid) && guid != Guid.Empty)
+            {
                 var requestCreateOrder = new IdentifiedCommand<CreateOrderCommand, bool>(command, guid);
                 commandResult = await _mediator.Send(requestCreateOrder);
             }
@@ -47,6 +53,17 @@ namespace Ordering.Api.Controllers {
             return commandResult ? (IActionResult)Ok() : (IActionResult)BadRequest();
         }
 
-
+        /// <summary>
+        /// 由订单Id获得订单信息
+        /// </summary>
+        /// <param name="id">订单Id</param>
+        /// <returns>订单信息</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(Order), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Get([FromQuery]int id)
+        {
+            var order = await _orderQuery.GetOrderAsync(id);
+            return Ok(order);
+        }
     }
 }

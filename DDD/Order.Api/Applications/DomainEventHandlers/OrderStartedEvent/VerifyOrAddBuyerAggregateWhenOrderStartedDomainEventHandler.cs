@@ -40,7 +40,7 @@ namespace Ordering.Api.Applications.DomainEventHandlers.OrderStartedEvent {
                                            orderStartedDomainEvent.CardHolderName,
                                            orderStartedDomainEvent.CardExpiration,
                                            orderStartedDomainEvent.Order.Id);
-            var buyerUpdated = existBuyer ?
+            _ = existBuyer ?
                 _buyerRepository.Update(buyer) :
                 _buyerRepository.Add(buyer);
 

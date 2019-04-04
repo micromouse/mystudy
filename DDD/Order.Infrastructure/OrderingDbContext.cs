@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Ordering.Domain.AggregateModel.BuyerAggregate;
 using Ordering.Domain.AggregateModel.OrderAggregate;
@@ -9,7 +8,6 @@ using Ordering.Domain.SeedWork;
 using Ordering.Infrastructure.EntityConfigurations;
 using System;
 using System.Data;
-using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
 

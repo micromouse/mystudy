@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Ordering.Domain.AggregateModel.BuyerAggregate;
 using Ordering.Domain.SeedWork;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Dapper;
-using System.Data;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Ordering.Infrastructure.Repositories
 {
