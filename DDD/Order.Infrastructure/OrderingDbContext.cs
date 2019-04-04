@@ -21,7 +21,6 @@ namespace Ordering.Infrastructure
     public class OrderingDbContext : DbContext, IUnitOfWork
     {
         private readonly IMediator _mediator;
-        private IDbContextTransaction _currentTransaction;
 
         #region 数据库属性
         public const string DEFAULT_SCHEMA = "ordering";
@@ -30,7 +29,7 @@ namespace Ordering.Infrastructure
         #endregion
 
         #region 公共属性
-        public bool HasActiveTransaction => _currentTransaction != null;
+        public IDbContextTransaction CurrentTransaction { get; private set; }
         #endregion
 
 
@@ -72,6 +71,18 @@ namespace Ordering.Infrastructure
         }
 
         /// <summary>
+        /// 异步开启事务
+        /// </summary>
+        /// <returns>事务对象</returns>
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        {
+            if (CurrentTransaction != null) return null;
+
+            CurrentTransaction = await this.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+            return CurrentTransaction;
+        }
+
+        /// <summary>
         /// 异步提交事务
         /// </summary>
         /// <param name="transaction">事务</param>
@@ -79,7 +90,7 @@ namespace Ordering.Infrastructure
         public async Task CommitTransactionAsync(IDbContextTransaction transaction)
         {
             if (transaction == null) throw new ArgumentNullException(nameof(transaction));
-            if (transaction != _currentTransaction) throw new InvalidOperationException($"Transaction {transaction.TransactionId} is not current");
+            if (transaction != CurrentTransaction) throw new InvalidOperationException($"Transaction {transaction.TransactionId} is not current");
 
             try
             {
@@ -88,59 +99,48 @@ namespace Ordering.Infrastructure
             }
             catch
             {
-                transaction.Rollback();
+                RollbackTransaction();
+                throw;
+            }
+            finally
+            {
+                if (CurrentTransaction != null)
+                {
+                    CurrentTransaction.Dispose();
+                    CurrentTransaction = null;
+                }
             }
         }
 
         /// <summary>
-        /// 异步开启事务
+        /// 回滚事务
         /// </summary>
-        /// <returns>事务对象</returns>
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        public void RollbackTransaction()
         {
-            if (_currentTransaction != null) return null;
-
-            _currentTransaction = await this.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
-            return _currentTransaction;
+            try
+            {
+                CurrentTransaction?.Rollback();
+            }
+            finally
+            {
+                if (CurrentTransaction != null)
+                {
+                    CurrentTransaction.Dispose();
+                    CurrentTransaction = null;
+                }
+            }
         }
 
         /// <summary>
         /// 分发事件,保存所有改变
         /// </summary>
         /// <param name="cancellationToken">取消Token</param>
-        /// <param name="isOnlyDispatchDomainEvents">是否仅仅分发领域事件,缺省为是</param>
         /// <returns>是否成功保存</returns>
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken), bool isOnlyDispatchDomainEvents = true)
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
             await _mediator.DispatchDomainEventsAsync(this);
-            if (!isOnlyDispatchDomainEvents)
-            {
-                await base.SaveChangesAsync(cancellationToken);
-            }
+            await base.SaveChangesAsync(cancellationToken);
             return true;
-
-            #region 使用数据库事务方式
-            /*
-            try {
-                //根聚合开始事务
-                var existsTransaction = this.Database.CurrentTransaction != null;
-                if (!existsTransaction) await this.Database.BeginTransactionAsync();
-
-                await _mediator.DispatchDomainEventsAsync(this);
-
-                //只有顶级的聚合根才能提交事务
-                if (!existsTransaction) {
-                    await base.SaveChangesAsync(cancellationToken);
-                    this.Database.CommitTransaction();
-                }
-
-                return true;
-            } catch {
-                this.Database.RollbackTransaction();
-                throw;
-            }
-            */
-            #endregion
         }
     }
 

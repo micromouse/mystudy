@@ -41,7 +41,7 @@ namespace Ordering.Api.Applications.Behaviors
 
             try
             {
-                if (_dbContext.HasActiveTransaction)
+                if (_dbContext.CurrentTransaction != null)
                 {
                     return await next();
                 }
@@ -51,7 +51,9 @@ namespace Ordering.Api.Applications.Behaviors
                 {
                     using (var transaction = await _dbContext.BeginTransactionAsync())
                     {
+                        _logger.LogInformation("----- Begin transaction {TransactionId} for {CommandName} (@Command)", transaction.TransactionId, typeName, request);
                         response = await next();
+                        _logger.LogInformation("----- Commit transaction {TransactionId} for {CommandName}", transaction.TransactionId, typeName);
                         await _dbContext.CommitTransactionAsync(transaction);
                     }
                 });

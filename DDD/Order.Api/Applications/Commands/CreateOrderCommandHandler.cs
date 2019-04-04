@@ -36,7 +36,7 @@ namespace Ordering.Api.Applications.Commands {
             }
             _orderRepository.Add(order);
 
-            return await _orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken, false);
+            return await _orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
         }
     }
 

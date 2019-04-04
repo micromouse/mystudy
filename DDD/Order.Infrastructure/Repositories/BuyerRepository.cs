@@ -7,12 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using System.Data;
+using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Ordering.Infrastructure.Repositories {
+namespace Ordering.Infrastructure.Repositories
+{
     /// <summary>
     /// 买家仓储
     /// </summary>
-    public class BuyerRepository : IBuyerRepository {
+    public class BuyerRepository : IBuyerRepository
+    {
         private readonly OrderingDbContext _context;
 
         /// <summary>
@@ -24,7 +27,8 @@ namespace Ordering.Infrastructure.Repositories {
         /// 初始化买家仓储
         /// </summary>
         /// <param name="context">订单DbContext</param>
-        public BuyerRepository(OrderingDbContext context) {
+        public BuyerRepository(OrderingDbContext context)
+        {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
@@ -33,12 +37,16 @@ namespace Ordering.Infrastructure.Repositories {
         /// </summary>
         /// <param name="buyer">买家</param>
         /// <returns>新添加的买家</returns>
-        public Buyer Add(Buyer buyer) {
-            if (buyer.IsTransient()) {
+        public Buyer Add(Buyer buyer)
+        {
+            if (buyer.IsTransient())
+            {
                 return _context.Buyers
                     .Add(buyer)
                     .Entity;
-            } else {
+            }
+            else
+            {
                 return buyer;
             }
         }
@@ -48,9 +56,10 @@ namespace Ordering.Infrastructure.Repositories {
         /// </summary>
         /// <param name="buyer">买家</param>
         /// <returns>买家</returns>
-        public async Task<Buyer> FindAsync(string buyerIdentityGuid) {
+        public async Task<Buyer> FindAsync(string buyerIdentityGuid)
+        {
             var sql = "SELECT * FROM ordering.buyers a WHERE identityguid=@buyerIdentityGuid AND EXISTS(SELECT TOP 1 1 FROM ordering.paymentmethods WHERE buyerid=a.id)";
-            var buyer = await _context.Database.GetDbConnection().QuerySingleOrDefaultAsync<Buyer>(sql, new { buyerIdentityGuid });
+            var buyer = await _context.Database.GetDbConnection().QuerySingleOrDefaultAsync<Buyer>(sql, new { buyerIdentityGuid }, _context.CurrentTransaction.GetDbTransaction());
             return buyer;
         }
 
@@ -59,7 +68,8 @@ namespace Ordering.Infrastructure.Repositories {
         /// </summary>
         /// <param name="buyerIdentityGuid">买家标识</param>
         /// <returns>买家</returns>
-        public async Task<Buyer> FindByIdAsync(string id) {
+        public async Task<Buyer> FindByIdAsync(string id)
+        {
             var sql = "SELECT * FROM ordering.buyers a WHERE id=@id AND EXISTS(SELECT TOP 1 1 FROM ordering.paymentmethods WHERE buyerid=a.id)";
             var buyer = await _context.Database.GetDbConnection().QuerySingleOrDefaultAsync<Buyer>(sql, new { id });
             return buyer;
@@ -70,7 +80,8 @@ namespace Ordering.Infrastructure.Repositories {
         /// </summary>
         /// <param name="id">买家Id</param>
         /// <returns>买家</returns>
-        public Buyer Update(Buyer buyer) {
+        public Buyer Update(Buyer buyer)
+        {
             return _context.Buyers
                     .Update(buyer)
                     .Entity;
