@@ -27,11 +27,13 @@ namespace ElasticSearchDemo {
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var logger = Log.Logger
+                .ForContext("ExecuteTicks", 20);
             try {
-                Log.Information("ConfigureServices");
+                logger.Information("ConfigureServices");
                 throw new ArgumentNullException("argu");
             } catch (Exception ex) {
-                Log.Error(ex, "has exception");
+                logger.Error(ex, "has exception");
             }
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
