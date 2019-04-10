@@ -8,12 +8,19 @@ using ElasticSearchDemo.Models;
 using Nest;
 using Nest.JsonNetSerializer;
 using Elasticsearch.Net;
+using Microsoft.Extensions.Logging;
 
 namespace ElasticSearchDemo.Controllers {
     /// <summary>
     /// Home控制器
     /// </summary>
     public class HomeController : Controller {
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger) {
+            _logger = logger;
+        }
+
         /// <summary>
         /// Index
         /// </summary>
