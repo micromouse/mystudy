@@ -36,7 +36,7 @@ namespace ElasticSearchDemo
                        .WriteTo.Console(new ElasticsearchJsonFormatter())
                        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
                        {
-                           IndexDecider = (@event, offset) => $"mystudy-{offset.DateTime.ToString("yyyy.MM")}",
+                           IndexDecider = (@event, offset) => $"lylog-{offset.DateTime.ToString("yyyy.MM")}",
                            TypeName = "log",
                            OverwriteTemplate = true,
                            AutoRegisterTemplate = true,

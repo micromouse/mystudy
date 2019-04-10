@@ -26,7 +26,7 @@ namespace ElasticSearchDemo {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            /*
             var logger = Log.Logger
                 .ForContext("ExecuteTicks", 20);
             try {
@@ -35,6 +35,7 @@ namespace ElasticSearchDemo {
             } catch (Exception ex) {
                 logger.Error(ex, "has exception");
             }
+            */
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
