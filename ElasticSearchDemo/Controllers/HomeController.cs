@@ -17,6 +17,10 @@ namespace ElasticSearchDemo.Controllers {
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
 
+        /// <summary>
+        /// 初始化Home控制器
+        /// </summary>
+        /// <param name="logger">日志</param>
         public HomeController(ILogger<HomeController> logger) {
             _logger = logger;
         }
