@@ -33,10 +33,10 @@ namespace ElasticSearchDemo
                {
                    configuration
                        .ReadFrom.Configuration(context.Configuration)
-                       .WriteTo.Console(new ElasticsearchJsonFormatter())
+                       .WriteTo.ColoredConsole()
                        .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
                        {
-                           IndexDecider = (@event, offset) => $"lylog-{offset.DateTime.ToString("yyyy.MM")}",
+                           IndexDecider = (@event, offset) => $"innerlylog-{offset.DateTime.ToString("yyyy.MM.dd")}",
                            TypeName = "log",
                            OverwriteTemplate = true,
                            AutoRegisterTemplate = true,

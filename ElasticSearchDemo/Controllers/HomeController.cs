@@ -32,7 +32,7 @@ namespace ElasticSearchDemo.Controllers {
             var pool = new SingleNodeConnectionPool(new Uri("http://localhost:9200"));
             var settings = new ConnectionSettings(pool, JsonNetSerializer.Default)
                 .DisableDirectStreaming(true)
-                .DefaultMappingFor<ElasticsearchLogModel>(m => m.IndexName("innerlylog-2019.04.11").TypeName("log"))
+                .DefaultMappingFor<ElasticsearchLogModel>(m => m.IndexName("innerlylog-*").TypeName("log"))
                 .OnRequestCompleted(call =>
                 {
                     if (call.RequestBodyInBytes != null) {
@@ -47,14 +47,19 @@ namespace ElasticSearchDemo.Controllers {
             search.Query = search.Query && new DateRangeQuery { Field = "@timestamp", GreaterThanOrEqualTo = DateTime.Parse("2019-04-10") };
             var x = client.Search<ElasticsearchLogModel>(search);
             */
-            var levels = new[] { "Information", "Error", "Fatal" };
+            var levels = new[] { "debug", "information", "error", "fatal" };
             var filters = new List<Func<QueryContainerDescriptor<ElasticsearchLogModel>, QueryContainer>>();
-            filters.Add(fq => fq.DateRange(r => r.Field(f => f.Timestamp).GreaterThanOrEquals(DateTime.Parse("2019-04-11")).LessThan(DateTime.Parse("2019-04-12"))));
+            filters.Add(fq => fq.DateRange(r => r.Field(f => f.Timestamp).GreaterThanOrEquals(DateTime.Parse("2019-04-11")).LessThan(DateTime.Parse("2019-04-13"))));
             if (levels != null) {
                 filters.Add(fq => fq.Terms(t => t.Field(f => f.Level).Terms(levels)));
             }
+
+            var musts = new List<Func<QueryContainerDescriptor<ElasticsearchLogModel>, QueryContainer>>();
+            musts.Add(mu => mu.Match(mq => mq.Field(f => f.MessageTemplate).Query("化")));
+            musts.Add(mu => mu.Match(mq => mq.Field(f => f.Message).Query("初始化")));
+
             var x = client.Search<ElasticsearchLogModel>(s => s.Query(q => q
-                .Bool(bq => bq.Filter(filters.ToArray()))));
+                .Bool(bq => bq.Must(musts).Filter(filters))));
 
 
             var resut = client.Search<ElasticsearchLogModel>(s => s
