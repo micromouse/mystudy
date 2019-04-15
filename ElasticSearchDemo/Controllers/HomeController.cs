@@ -57,10 +57,8 @@ namespace ElasticSearchDemo.Controllers {
             var musts = new List<Func<QueryContainerDescriptor<ElasticsearchLogModel>, QueryContainer>>();
             musts.Add(mu => mu.Match(mq => mq.Field(f => f.MessageTemplate).Query("化")));
             musts.Add(mu => mu.Match(mq => mq.Field(f => f.Message).Query("初始化")));
-
             var x = client.Search<ElasticsearchLogModel>(s => s.Query(q => q
-                .Bool(bq => bq.Must(musts).Filter(filters))));
-
+                .Bool(bq => bq.Filter(filters).Must(musts))));
 
             var resut = client.Search<ElasticsearchLogModel>(s => s
                 .From(0)
