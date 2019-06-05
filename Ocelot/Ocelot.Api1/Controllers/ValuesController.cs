@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ocelot.Api1.Controllers {
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
     public class ValuesController : ControllerBase {
         // GET api/values
@@ -17,7 +17,7 @@ namespace Ocelot.Api1.Controllers {
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id) {
-            return "value";
+            return $"v1 value is {id}";
         }
 
         // POST api/values
