@@ -60,3 +60,6 @@ dotnet ef migrations add InitialIdentityServerConfigurationDbMigration -c Config
 "ConnectionStrings": {
 	"DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=AuthServer;Trusted_Connection=True;MultipleActiveResultSets=true"
 },
+
+Package Manager Console
+Add-Migration MaintainDbInitial -c MaintainDbContext -o Data/Migrations/MaintainDb
