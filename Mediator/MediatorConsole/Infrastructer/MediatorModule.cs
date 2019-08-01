@@ -24,7 +24,7 @@ namespace DXQ.Study.Mediator.MediatorConsole.Infrastructer {
             builder.RegisterAssemblyTypes(typeof(HelloCommand).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRequestHandler<,>));
 
             //注入HelloeventHandler所在程序集所有INotificationHandler,可分配给注册类型一个接近开放泛型类型的实例
-            builder.RegisterAssemblyTypes(typeof(HelloeventHandler).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(INotificationHandler<>));
+            builder.RegisterAssemblyTypes(typeof(MyHelloeventHandler).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(INotificationHandler<>));
 
             builder.Register<ServiceFactory>(ctx =>
             {

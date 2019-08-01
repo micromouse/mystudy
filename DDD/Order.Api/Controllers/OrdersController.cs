@@ -49,8 +49,8 @@ namespace Ordering.Api.Controllers
                 var requestCreateOrder = new IdentifiedCommand<CreateOrderCommand, bool>(command, guid);
                 commandResult = await _mediator.Send(requestCreateOrder);
             }
-
-            return commandResult ? (IActionResult)Ok() : (IActionResult)BadRequest();
+            
+            return commandResult ? Ok() : (IActionResult)BadRequest();
         }
 
         /// <summary>
