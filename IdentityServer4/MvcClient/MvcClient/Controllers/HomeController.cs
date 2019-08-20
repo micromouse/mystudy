@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -16,6 +18,17 @@ namespace DXQ.Study.IdentityServer4.MvcClient.Controllers {
     /// Home控制器
     /// </summary>
     public class HomeController : Controller {
+        [HttpGet]
+        public async Task<IActionResult> Check(string echo) {
+            string bodyAsText = await new StreamReader(Request.Body).ReadToEndAsync();
+            return Content(bodyAsText);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Check(int i) {
+            return await Task.Factory.StartNew(() => Content($"ace{i}"));
+        }
+
         /// <summary>
         /// 登出
         /// </summary>

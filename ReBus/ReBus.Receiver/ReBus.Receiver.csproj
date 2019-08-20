@@ -9,6 +9,7 @@
     <PackageReference Include="Rebus" Version="4.2.1" />
     <PackageReference Include="Rebus.RabbitMQ" Version="4.4.2" />
     <PackageReference Include="Rebus.ServiceProvider" Version="4.0.1" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Rebus.Config;
-using Rebus.Routing.TypeBased;
-using Rebus.ServiceProvider;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -25,8 +25,21 @@ namespace ReBus.Receiver {
                 x.Registery(typeof(Program).Assembly);
             });
 
+            var list = new List<string> { "1", "3", "5", "7" };
+            var person = new Person() { Ids = list };
+            var exp = "(x.Ids.Contains(\"1\") || x.Ids.Contains(\"9\")) && x.Ids.Contains(\"4\")";
+            var xparam = Expression.Parameter(typeof(Person), "x");
+            var e = System.Linq.Dynamic.Core.DynamicExpressionParser.ParseLambda(new[] { xparam }, typeof(bool), exp);
+
+            var b = list.AsQueryable().Any("ToString()==\"-1\" || ToString()==\"0\"");
+
+            var result = e.Compile().DynamicInvoke(person);
             Console.Read();
         }
+    }
+
+    public class Person {
+        public IList<string> Ids { get; set; }
     }
 
     public class Initializer<TDbContext> where TDbContext : DbContext {
