@@ -6,13 +6,12 @@ namespace DataStructureDemo {
     /// </summary>
     /// <typeparam name="T">链表数据类型</typeparam>
     public class SingleLinkedList<T> {
-        private int count;                      //字段，当前链表节点个数
         private SingleLinkedNode<T> head;       //字段，当前链表的头节点
 
         /// <summary>
         /// 当前链表节点个数
         /// </summary>
-        public int Count => count;
+        public int Cout { get; private set; }
 
         /// <summary>
         /// 索引器
@@ -28,7 +27,7 @@ namespace DataStructureDemo {
         /// 初始化单链表集合
         /// </summary>
         public SingleLinkedList() {
-            count = 0;
+            Count = 0;
             head = null;
         }
 
@@ -42,11 +41,11 @@ namespace DataStructureDemo {
             if (head == null) {
                 head = newNode;
             } else {
-                var lastNode = GetNodeByIndex(count - 1);
+                var lastNode = GetNodeByIndex(Count - 1);
                 lastNode.Next = newNode;
             }
 
-            count++;
+            Count++;
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace DataStructureDemo {
         public void Insert(int index, T item) {
             var newNode = new SingleLinkedNode<T>(item);
 
-            if (index < 0 || index >= count) {
+            if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
             } else if (index == 0) {
                 //在头节点插入新节点
@@ -73,7 +72,7 @@ namespace DataStructureDemo {
                 prevNode.Next = newNode;
             }
 
-            count++;
+            Count++;
         }
 
         /// <summary>
@@ -81,7 +80,7 @@ namespace DataStructureDemo {
         /// </summary>
         /// <param name="index">索引</param>
         public void RemoveAt(int index) {
-            if (index < 0 || index > count) {
+            if (index < 0 || index > Count) {
                 throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
             } else if (index == 0) {
                 var deleteNode = head;
@@ -98,7 +97,7 @@ namespace DataStructureDemo {
                 deleteNode = null;
             }
 
-            count--;
+            Count--;
         }
 
         /// <summary>
@@ -107,7 +106,7 @@ namespace DataStructureDemo {
         /// <param name="index">索引</param>
         /// <returns>节点</returns>
         private SingleLinkedNode<T> GetNodeByIndex(int index) {
-            if (index < 0 || index >= count) {
+            if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException(nameof(index), "索引超出范围");
             }
 
