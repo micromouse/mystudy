@@ -11,7 +11,11 @@ namespace DataStructureDemo {
         /// <summary>
         /// 当前链表节点个数
         /// </summary>
+<<<<<<< HEAD
         public int Count { get; private set; }
+=======
+        public int Cout { get; private set; }
+>>>>>>> b2dff31af8280ad6edb3759587b9b466f2fac331
 
         /// <summary>
         /// 索引器
