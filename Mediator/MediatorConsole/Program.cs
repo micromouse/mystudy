@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using DXQ.Study.Mediator.MediatorConsole.Infrastructer;
-using MediatR;
 using System;
 
 namespace DXQ.Study.Mediator.MediatorConsole {
@@ -18,7 +17,7 @@ namespace DXQ.Study.Mediator.MediatorConsole {
             container.RegisterType<MessageSender>();
             var icontainer = container.Build();
 
-            icontainer.Resolve<MessageSender>().Send("this is a test message");
+            icontainer.Resolve<MessageSender>().Publish("this is a test message");
             Console.Read();
         }
     }

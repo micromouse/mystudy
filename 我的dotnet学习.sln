@@ -105,6 +105,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElasticSearchDemo", "Elasti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElasticSearchConsoleApp", "ElasticSearchConsoleApp\ElasticSearchConsoleApp.csproj", "{303239DB-992A-444A-AB38-D653631F0D8E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackgroundTasks", "BackgroundTasks", "{0624E2F5-0B3A-4CA5-8BDA-EC947BF6236D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTaskService", "BackgroundTask\BackgroundTaskService\BackgroundTaskService.csproj", "{84F9323F-3949-4D82-BE6E-49ADBD70C19E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -259,6 +263,10 @@ Global
 		{303239DB-992A-444A-AB38-D653631F0D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{303239DB-992A-444A-AB38-D653631F0D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{303239DB-992A-444A-AB38-D653631F0D8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84F9323F-3949-4D82-BE6E-49ADBD70C19E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F9323F-3949-4D82-BE6E-49ADBD70C19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F9323F-3949-4D82-BE6E-49ADBD70C19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F9323F-3949-4D82-BE6E-49ADBD70C19E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -301,6 +309,7 @@ Global
 		{FF9078C1-5ABC-4BF4-B324-99EBFCC33BFA} = {96F52D62-2D2E-470B-AD28-856560BFFC12}
 		{D1251A8F-05EB-43C6-B739-8CD567764AB0} = {AC927F3B-0DFA-4E59-BD09-7174F2D504FB}
 		{303239DB-992A-444A-AB38-D653631F0D8E} = {AC927F3B-0DFA-4E59-BD09-7174F2D504FB}
+		{84F9323F-3949-4D82-BE6E-49ADBD70C19E} = {0624E2F5-0B3A-4CA5-8BDA-EC947BF6236D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62F26DFC-4A74-4344-B621-E75823B602CF}
