@@ -1,7 +1,7 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamPathTemplate": "/api/{everything}",  
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
