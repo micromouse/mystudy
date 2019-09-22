@@ -1,0 +1,25 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/{url}",
+      "DownstreamScheme": "http",
+      "ServiceName": "ConsulAndOcelot.ServiceA",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "UseServiceDiscovery": true,
+      "UpstreamPathTemplate": "/api/{url}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "RequestIdKey": "OcRequestId"
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "ot-traceid",
+    "BaseUrl": "http://127.0.0.1:8000",
+    "ServiceDiscoveryProvider": {
+      "Host": "127.0.0.1",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}

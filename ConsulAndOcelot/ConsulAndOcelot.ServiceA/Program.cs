@@ -3,20 +3,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace ConsulAndOcelot.ApiGetway {
+namespace ConsulAndOcelot.ServiceA {
     /// <summary>
-    /// ConsulAndOcelot网关
+    /// ConsulAndOcelot服务A
     /// </summary>
     public class Program {
-        private static string url = "http://0.0.0.0:8000";
         /// <summary>
         /// Main
         /// </summary>
         /// <param name="args">参数</param>
         public static void Main(string[] args) {
-            CreateWebHostBuilder(args)
-                .Build()
-                .Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         /// <summary>
@@ -28,11 +25,10 @@ namespace ConsulAndOcelot.ApiGetway {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile("ocelot.json", optional: true, reloadOnChange: false)
                 .AddEnvironmentVariables()
                 .AddCommandLine(args)
                 .Build();
-            url = configuration["ApplicationUrl"] ?? url;
+            var url = configuration[""] ?? "http://0.0.0.0:8100";
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(configuration)

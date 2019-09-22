@@ -2,22 +2,20 @@
 using DnsClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
-using Ocelot.Provider.Consul;
 using System.Net;
 
-namespace ConsulAndOcelot.ApiGetway {
+namespace ConsulAndOcelot.ServiceA {
     /// <summary>
-    /// 启动ConsuleAndOcelot网关
+    /// 启动ConsulAndOcelot服务A
     /// </summary>
     public class Startup {
         public IConfiguration Configuration { get; }
 
         /// <summary>
-        /// 初始化启动ConsuleAndOcelot网关
+        /// 初始化启动ConsulAndOcelot服务A
         /// </summary>
         /// <param name="configuration">配置</param>
         public Startup(IConfiguration configuration) {
@@ -29,11 +27,11 @@ namespace ConsulAndOcelot.ApiGetway {
         /// </summary>
         /// <param name="services">IServiceCollection</param>
         public void ConfigureServices(IServiceCollection services) {
-            services.AddOcelot()
-                .AddConsul()
-                .AddConfigStoredInConsul();
             services.AddSingleton<IConsulClient>(new ConsulClient(config => config.Address = new System.Uri("http://127.0.0.1:8500")))
                 .AddSingleton<IDnsQuery>(new LookupClient(IPAddress.Parse("127.0.0.1"), 8600));
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         /// <summary>
@@ -45,18 +43,18 @@ namespace ConsulAndOcelot.ApiGetway {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
+
             app.ApplicationServices
                 .GetService<IConsulClient>()
                 .Agent.ServiceRegister(new AgentServiceRegistration {
-                    ID = "ConsulAndOcelot.ApiGetway",
-                    Name = "ConsulAndOcelot.ApiGetway",
+                    ID = "ConsulAndOcelot.ServiceA",
+                    Name = "ConsulAndOcelot.ServiceA",
                     Address = "127.0.0.1",
-                    Port = 8000
+                    Port = 8100
                 })
                 .Wait();
 
-            app.UseOcelot()
-                .Wait();
+            app.UseMvc();
         }
     }
 }
