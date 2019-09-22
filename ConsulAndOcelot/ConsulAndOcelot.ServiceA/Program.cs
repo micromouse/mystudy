@@ -28,7 +28,7 @@ namespace ConsulAndOcelot.ServiceA {
                 .AddEnvironmentVariables()
                 .AddCommandLine(args)
                 .Build();
-            var url = configuration[""] ?? "http://0.0.0.0:8100";
+            var url = configuration["ApplicationUrl"] ?? "http://0.0.0.0:8100";
 
             return WebHost.CreateDefaultBuilder(args)
                 .UseConfiguration(configuration)

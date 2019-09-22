@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Net;
 
 namespace ConsulAndOcelot.ServiceA {
@@ -44,13 +45,14 @@ namespace ConsulAndOcelot.ServiceA {
                 app.UseDeveloperExceptionPage();
             }
 
+            var uri = new Uri(Configuration["ApplicationUrl"]);
             app.ApplicationServices
                 .GetService<IConsulClient>()
                 .Agent.ServiceRegister(new AgentServiceRegistration {
-                    ID = "ConsulAndOcelot.ServiceA",
+                    ID = $"ConsulAndOcelot.ServiceA:{uri.Port}",
                     Name = "ConsulAndOcelot.ServiceA",
                     Address = "127.0.0.1",
-                    Port = 8100
+                    Port = uri.Port
                 })
                 .Wait();
 
