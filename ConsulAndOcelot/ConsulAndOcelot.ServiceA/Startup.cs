@@ -28,8 +28,8 @@ namespace ConsulAndOcelot.ServiceA {
         /// </summary>
         /// <param name="services">IServiceCollection</param>
         public void ConfigureServices(IServiceCollection services) {
-            services.AddSingleton<IConsulClient>(new ConsulClient(config => config.Address = new System.Uri("http://127.0.0.1:8500")))
-                .AddSingleton<IDnsQuery>(new LookupClient(IPAddress.Parse("127.0.0.1"), 8600));
+            services.AddSingleton<IConsulClient>(new ConsulClient(config => config.Address = new System.Uri("http://192.168.2.136:8500")))
+                .AddSingleton<IDnsQuery>(new LookupClient(IPAddress.Parse("192.168.2.136"), 8600));
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -45,13 +45,13 @@ namespace ConsulAndOcelot.ServiceA {
                 app.UseDeveloperExceptionPage();
             }
 
-            var uri = new Uri(Configuration["ApplicationUrl"]);
+            var uri = new Uri(Configuration["ApplicationUrl"] ?? "http://0.0.0.0:8100");
             app.ApplicationServices
                 .GetService<IConsulClient>()
                 .Agent.ServiceRegister(new AgentServiceRegistration {
                     ID = $"ConsulAndOcelot.ServiceA:{uri.Port}",
                     Name = "ConsulAndOcelot.ServiceA",
-                    Address = "127.0.0.1",
+                    Address = "192.168.2.22",
                     Port = uri.Port
                 })
                 .Wait();

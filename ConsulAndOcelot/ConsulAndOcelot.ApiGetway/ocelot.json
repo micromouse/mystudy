@@ -1,23 +1,25 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/api/{url}",
+      //实际转发到的下游请求
+      "DownstreamPathTemplate": "/api/v1/{url}",
       "DownstreamScheme": "http",
-      "ServiceName": "ConsulAndOcelot.ServiceA",
       "LoadBalancerOptions": {
         "Type": "LeastConnection"
       },
+      //匹配上游用户请求
       "UseServiceDiscovery": true,
       "UpstreamPathTemplate": "/api/{url}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "RequestIdKey": "OcRequestId"
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RequestIdKey": "OcRequestId",
+      "ServiceName": "ConsulAndOcelot.ServiceA"
     }
   ],
   "GlobalConfiguration": {
     "RequestIdKey": "ot-traceid",
     "BaseUrl": "http://127.0.0.1:8000",
     "ServiceDiscoveryProvider": {
-      "Host": "127.0.0.1",
+      "Host": "192.168.2.136",
       "Port": 8500,
       "Type": "Consul"
     }

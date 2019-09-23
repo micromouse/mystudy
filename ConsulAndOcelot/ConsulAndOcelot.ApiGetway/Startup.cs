@@ -32,8 +32,8 @@ namespace ConsulAndOcelot.ApiGetway {
             services.AddOcelot()
                 .AddConsul()
                 .AddConfigStoredInConsul();
-            services.AddSingleton<IConsulClient>(new ConsulClient(config => config.Address = new System.Uri("http://127.0.0.1:8500")))
-                .AddSingleton<IDnsQuery>(new LookupClient(IPAddress.Parse("127.0.0.1"), 8600));
+            services.AddSingleton<IConsulClient>(new ConsulClient(config => config.Address = new System.Uri("http://192.168.2.136:8500")))
+                .AddSingleton<IDnsQuery>(new LookupClient(IPAddress.Parse("192.168.2.136"), 8600));
         }
 
         /// <summary>
