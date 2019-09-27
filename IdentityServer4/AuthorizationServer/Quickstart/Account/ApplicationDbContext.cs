@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace DXQ.Study.IdentityServer4.AuthorizationServer.Quickstart.Account {
     /// <summary>
@@ -24,7 +19,7 @@ namespace DXQ.Study.IdentityServer4.AuthorizationServer.Quickstart.Account {
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder) {
             builder.Entity<ApplicationUser>().ToTable("User");
-            base.OnModelCreating(builder);            
+            base.OnModelCreating(builder);
         }
     }
 }
