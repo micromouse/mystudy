@@ -26,7 +26,7 @@ namespace BackgroundTaskService {
         /// <param name="hostBuilder">IHostBuilder</param>
         /// <param name="cancellationToken">CancellationToken</param>
         /// <returns>任务</returns>
-        public static Task RunAsServiceAsync(this IHostBuilder hostBuilder, CancellationToken cancellationToken = default) {
+        private static Task RunAsServiceAsync(this IHostBuilder hostBuilder, CancellationToken cancellationToken = default) {
             return hostBuilder.UseServiceBaseLifetime()
                 .Build()
                 .RunAsync(cancellationToken);

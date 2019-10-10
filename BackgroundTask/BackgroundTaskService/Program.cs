@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DotNetCore.WindowsServices;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,9 @@ namespace BackgroundTaskService {
     /// <summary>
     /// 后台任务服务
     /// </summary>
+    /// <remarks>
+    /// sc create MyBackgroundTaskService binPath= "c:\myservice\BackgroundTaskService.exe" DisplayName= "MyBackgroundTaskService"
+    /// </remarks>
     class Program {
         /// <summary>
         /// Main
