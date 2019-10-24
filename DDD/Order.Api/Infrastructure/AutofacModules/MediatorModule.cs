@@ -45,10 +45,8 @@ namespace Ordering.Api.Infrastructure.AutofacModules {
                     builder.RegisterType(implementation).As(service);
                 }
             }
-            builder.RegisterAssemblyTypes(typeof(IdentifiedCommand<,>).GetTypeInfo().Assembly)
-                .AsClosedTypesOf(typeof(IRequestHandler<,>));
 
-            //注入Publish处理器,一个Publish可以有多个NotificationHandler
+            //注入Publish处理器,一个Publish可以有多个INotificationHandler
             builder.RegisterAssemblyTypes(typeof(VerifyOrAddBuyerAggregateWhenOrderStartedDomainEventHandler).GetTypeInfo().Assembly)
                 .AsClosedTypesOf(typeof(INotificationHandler<>))
                 .AsImplementedInterfaces();
