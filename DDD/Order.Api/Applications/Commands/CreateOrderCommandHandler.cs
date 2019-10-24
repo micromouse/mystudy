@@ -40,6 +40,7 @@ namespace Ordering.Api.Applications.Commands {
         }
     }
 
+    /*
     /// <summary>
     /// 建立订单统一标识命令处理器
     /// </summary>
@@ -60,5 +61,5 @@ namespace Ordering.Api.Applications.Commands {
             return true;
         }
     }
-
+    */
 }
