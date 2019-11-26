@@ -45,7 +45,7 @@ namespace Ordering.Api.Applications.Behaviors
                 {
                     return await next();
                 }
-
+                var x = (IRequest<TResponse>)request;
                 var strategy = _dbContext.Database.CreateExecutionStrategy();
                 await strategy.ExecuteAsync(async () =>
                 {
