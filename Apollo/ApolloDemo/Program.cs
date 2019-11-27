@@ -14,15 +14,16 @@ namespace ApolloDemo {
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.ConfigureAppConfiguration(builder =>
-                    {
-                        builder
-                            .AddApollo(builder.Build().GetSection("apollo"))
-                            .AddDefault(ConfigFileFormat.Json)
-                            .AddDefault(ConfigFileFormat.Xml)
-                            .AddDefault();
-                    });
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .ConfigureAppConfiguration(builder =>
+                        {
+                            builder
+                                .AddApollo(builder.Build().GetSection("apollo"))
+                                .AddDefault(ConfigFileFormat.Json)
+                                .AddDefault(ConfigFileFormat.Xml)
+                                .AddDefault();
+                        })
+                        .UseStartup<Startup>();
                 });
     }
 }

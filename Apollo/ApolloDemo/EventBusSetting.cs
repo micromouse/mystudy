@@ -27,7 +27,7 @@ namespace ApolloDemo {
         /// <param name="configuration"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static T GetAndDeserializer<T>(this IConfiguration configuration, string key) {
+        public static T GetFromIndexer<T>(this IConfiguration configuration, string key) {
             return configuration[key].ToDeserializer<T>();
         }
 
