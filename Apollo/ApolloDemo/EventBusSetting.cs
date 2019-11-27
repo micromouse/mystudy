@@ -25,7 +25,7 @@ namespace ApolloDemo {
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="configuration"></param>
-        /// <param name="key"></param>
+        /// <param name="key"></param>~
         /// <returns></returns>
         public static T GetFromIndexer<T>(this IConfiguration configuration, string key) {
             return configuration[key].ToDeserializer<T>();
