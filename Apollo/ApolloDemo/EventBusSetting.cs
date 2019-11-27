@@ -30,7 +30,5 @@ namespace ApolloDemo {
         public static T GetFromIndexer<T>(this IConfiguration configuration, string key) {
             return configuration[key].ToDeserializer<T>();
         }
-
-
     }
 }

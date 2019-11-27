@@ -17,11 +17,19 @@ namespace ApolloDemo {
                     webBuilder
                         .ConfigureAppConfiguration(builder =>
                         {
-                            builder
+                            var apolloBuilder = builder
                                 .AddApollo(builder.Build().GetSection("apollo"))
                                 .AddDefault(ConfigFileFormat.Json)
                                 .AddDefault(ConfigFileFormat.Xml)
                                 .AddDefault();
+                            var nameSpaces = builder.Build()["apollo:NameSpaces"]?.Split(',');
+                            if (nameSpaces?.Length > 0) {
+                                foreach (var item in nameSpaces) {
+                                    if (!string.IsNullOrEmpty(item)) {
+                                        apolloBuilder.AddNamespace(item);
+                                    }
+                                }
+                            }
                         })
                         .UseStartup<Startup>();
                 });
