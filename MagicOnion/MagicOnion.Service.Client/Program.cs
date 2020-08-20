@@ -5,7 +5,14 @@ using MagicOnion.Service.Definition;
 using System;
 
 namespace MagicOnion.Service.Client {
+    /// <summary>
+    /// Grpc 测试
+    /// </summary>
     class Program {
+        /// <summary>
+        /// Main
+        /// </summary>
+        /// <param name="args">参数</param>
         static void Main(string[] args) {
             GrpcEnvironment.SetLogger(new ConsoleLogger());
 
