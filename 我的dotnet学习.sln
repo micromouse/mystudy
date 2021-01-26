@@ -117,7 +117,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsulAndOcelot.ServiceA", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apollo", "Apollo", "{20EC029A-2AB2-47CD-918A-9B199ADEDA7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApolloDemo", "Apollo\ApolloDemo\ApolloDemo.csproj", "{B75A83DC-B881-4B93-968C-A9B9290B2B87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApolloDemo", "Apollo\ApolloDemo\ApolloDemo.csproj", "{B75A83DC-B881-4B93-968C-A9B9290B2B87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmDemo", "DataStructure\AlgorithmDemo\AlgorithmDemo.csproj", "{79AD1A48-DA5A-46FE-AC32-B8C5481792DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -289,6 +291,10 @@ Global
 		{B75A83DC-B881-4B93-968C-A9B9290B2B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B75A83DC-B881-4B93-968C-A9B9290B2B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B75A83DC-B881-4B93-968C-A9B9290B2B87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79AD1A48-DA5A-46FE-AC32-B8C5481792DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79AD1A48-DA5A-46FE-AC32-B8C5481792DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79AD1A48-DA5A-46FE-AC32-B8C5481792DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79AD1A48-DA5A-46FE-AC32-B8C5481792DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -335,6 +341,7 @@ Global
 		{0339D969-404C-49C7-AC84-D7E74BC94AB8} = {5ED96FF2-5205-4EA1-8C36-FE77D6024D31}
 		{9DE67F34-ECDE-4645-9806-825B225B9335} = {5ED96FF2-5205-4EA1-8C36-FE77D6024D31}
 		{B75A83DC-B881-4B93-968C-A9B9290B2B87} = {20EC029A-2AB2-47CD-918A-9B199ADEDA7E}
+		{79AD1A48-DA5A-46FE-AC32-B8C5481792DB} = {96F52D62-2D2E-470B-AD28-856560BFFC12}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62F26DFC-4A74-4344-B621-E75823B602CF}
