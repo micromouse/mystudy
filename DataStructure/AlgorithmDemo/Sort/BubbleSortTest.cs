@@ -5,15 +5,12 @@ namespace AlgorithmDemo.Sort {
     /// <summary>
     /// 冒泡排序测试
     /// </summary>
-    public class BubbleSortTest {
-        private readonly ITestOutputHelper _helper;
-
+    public class BubbleSortTest : SortTestBase {
         /// <summary>
         /// 初始化冒泡排序测试
         /// </summary>
         /// <param name="helper"><see cref="ITestOutputHelper"/></param>
-        public BubbleSortTest(ITestOutputHelper helper) {
-            _helper = helper;
+        public BubbleSortTest(ITestOutputHelper helper) : base(helper) {
         }
 
         /// <summary>
@@ -40,15 +37,5 @@ namespace AlgorithmDemo.Sort {
             Assert.Equal("9,8,7,6,5,4,3,2,1", string.Join(',', arr));
         }
 
-        /// <summary>
-        /// 获得排序数据
-        /// </summary>
-        /// <returns>排序数据</returns>
-        private int[] GetSortDatas() {
-            var arr = new int[] { 5, 4, 6, 3, 2, 1, 9, 7, 8 };
-            _helper.WriteLine($"排序前序列:[{string.Join(',', arr)}]");
-
-            return arr;
-        }
     }
 }
