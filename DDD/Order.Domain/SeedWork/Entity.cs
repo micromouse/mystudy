@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 using System.Collections.Generic;
 
 namespace Ordering.Domain.SeedWork {
@@ -53,7 +52,7 @@ namespace Ordering.Domain.SeedWork {
         /// </summary>
         /// <returns>实体Id是否未赋值</returns>
         public bool IsTransient() {
-            return this.Id == default(Int32);
+            return this.Id == default;
         }
 
         #region 重载Equals/GetHasCode
@@ -97,8 +96,8 @@ namespace Ordering.Domain.SeedWork {
         /// <param name="right">右实体</param>
         /// <returns>两个实体是否相等</returns>
         public static bool operator ==(Entity left, Entity right) {
-            if (object.Equals(left, null)) {
-                return object.Equals(right, null) ? true : false;
+            if (Equals(left, null)) {
+                return true;
             } else {
                 return left.Equals(right);
             }
